@@ -189,6 +189,53 @@ void Tests() {
 
 }
 
+namespace Jump_Game {
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int min_jump = 0;
+        for (int i = nums.size() - 2; i >= 0; --i) {
+            ++min_jump;
+            if (nums[i] >= min_jump) {
+                min_jump = 0;
+            }
+        }
+        return min_jump == 0 ? true : false;
+    }
+};
+
+void Tests() {
+    Solution solution;
+    {
+        vector<int> nums {2};
+        assert(solution.canJump(nums) == true);
+    }
+    {
+        vector<int> nums {0};
+        assert(solution.canJump(nums) == true);
+    }
+    {
+        vector<int> nums {2,3,1,1,4};
+        assert(solution.canJump(nums) == true);
+    }
+    {
+        vector<int> nums {3,2,1,0,4};
+        assert(solution.canJump(nums) == false);
+    }
+    {
+        vector<int> nums {3,2,2,0,4};
+        assert(solution.canJump(nums) == true);
+    }
+    {
+        vector<int> nums {2,0,2,0,4};
+        assert(solution.canJump(nums) == true);
+    }
+
+}
+}
+
+
 
 namespace Sort_Array_By_Parity {
 
@@ -265,58 +312,84 @@ void Tests() {
 
 }
 
+}
+
+namespace Ugly_Number_II {
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        vector<int> result(n);
+        result[0] = 1;
+        result[1] = 2;
+        result[2] = 3;
+        for (int i = 3; i < n; ++i) {
+            result[i] = min(result[i - 3] * 5, min(result[i - 2] * 3, result[i - 1] * 2));
+        }
+        return result[n - 1];
+    }
+};
+
+void Tests() {
+    Solution solution;
+    assert(solution.nthUglyNumber(1) == 1);
+    assert(solution.nthUglyNumber(10) == 12);
+}
 
 }
 
 
-namespace Jump_Game {
+namespace Pascal_Triangle {
 
 class Solution {
 public:
-    bool canJump(vector<int>& nums) {
-        int min_jump = 0;
-        for (int i = nums.size() - 2; i >= 0; --i) {
-            ++min_jump;
-            if (nums[i] >= min_jump) {
-                min_jump = 0;
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> result(numRows);
+        for (int i = 0; i < numRows; ++i) {
+            result[i] = vector<int>(i + 1, 1);
+            for (int j = 1; j < i; ++j) {
+                result[i][j] = result[i - 1][j] + result[i - 1][j - 1];
             }
         }
-        return min_jump == 0 ? true : false;
+        return result;
     }
 };
 
 void Tests() {
     Solution solution;
     {
-        vector<int> nums {2};
-        assert(solution.canJump(nums) == true);
+        vector<vector<int>> ans = {{1}};
+        assert(solution.generate(1) == ans);
     }
     {
-        vector<int> nums {0};
-        assert(solution.canJump(nums) == true);
+        vector<vector<int>> ans = {{1}, {1, 1}};
+        assert(solution.generate(2) == ans);
     }
     {
-        vector<int> nums {2,3,1,1,4};
-        assert(solution.canJump(nums) == true);
+        vector<vector<int>> ans = {{1}, {1, 1}, {1,2,1}};
+        assert(solution.generate(3) == ans);
     }
     {
-        vector<int> nums {3,2,1,0,4};
-        assert(solution.canJump(nums) == false);
-    }
-    {
-        vector<int> nums {3,2,2,0,4};
-        assert(solution.canJump(nums) == true);
-    }
-    {
-        vector<int> nums {2,0,2,0,4};
-        assert(solution.canJump(nums) == true);
+        vector<vector<int>> ans = {{1}, {1, 1}, {1,2,1}, {1,3,3,1}};
+        assert(solution.generate(4) == ans);
     }
 
 }
+
+
 }
+
+
+
 
 int main()
 {
-    Climbing_Stairs::Tests();
+    Pascal_Triangle::Tests();
     return 0;
 }
