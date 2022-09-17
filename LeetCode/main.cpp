@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <string>
 #include <unordered_map>
+#include <stack>
 
 using namespace std;
 
@@ -434,9 +435,108 @@ void Tests() {
 
 }
 
+namespace Number_of_Subarrays_with_Bounded_Maximum {
+
+class Solution {
+public:
+    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
+        int result = 0;
+        int prev_bigger_than_r = -1;
+        int count_prev = 0;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            if (nums[i] > right) {
+                count_prev = 0;
+                prev_bigger_than_r = i;
+            } else if (nums[i] < left) {
+                result += count_prev;
+            } else {
+                count_prev = i - prev_bigger_than_r;
+                result += count_prev;
+            }
+        }
+        return result;
+    }
+};
+
+void Tests() {
+    Solution solution;
+    {
+        vector<int> nums {2,1,4,3};
+        assert(solution.numSubarrayBoundedMax(nums, 2, 3) == 3);
+    }
+    {
+        vector<int> nums {2,9,2,5,6};
+        assert(solution.numSubarrayBoundedMax(nums, 2, 8) == 7);
+    }
+    {
+        vector<int> nums {2,9,2,5,6};
+        assert(solution.numSubarrayBoundedMax(nums, 10, 11) == 0);
+    }
+    {
+        vector<int> nums {2};
+        assert(solution.numSubarrayBoundedMax(nums, 0, 8) == 1);
+    }
+    {
+        vector<int> nums {2};
+        assert(solution.numSubarrayBoundedMax(nums, 5, 8) == 0);
+    }
+}
+
+}
+
+namespace Is_Subsequence {
+
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        if (s.empty() && t.empty()) {
+            return true;
+        }
+        if (s.empty() || t.empty()) {
+            return false;
+        }
+        for (size_t i = 0; i < t.size(); ++i) {
+            if (s[0] == t[i]) {
+                s = s.substr(1);
+            }
+            if (s.empty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+void Tests() {
+    Solution solution;
+    {
+        string s = "abc";
+        string t = "ahbgdc";
+        assert(solution.isSubsequence(s, t) == true);
+    }
+    {
+        string s = "axc";
+        string t = "ahbgdc";
+        assert(solution.isSubsequence(s, t) == false);
+    }
+    {
+        string s = "axc";
+        string t = "abcxd";
+        assert(solution.isSubsequence(s, t) == false);
+    }
+    {
+        string s = "";
+        string t = "abcxd";
+        assert(solution.isSubsequence(s, t) == false);
+    }
+
+}
+
+}
+
 
 int main()
 {
-    Subarray_Sum_Equals_K::Tests();
+    Is_Subsequence::Tests();
     return 0;
 }
