@@ -5,6 +5,8 @@
 #include <string>
 #include <unordered_map>
 #include <stack>
+#include <set>
+#include <unordered_set>
 
 using namespace std;
 
@@ -606,9 +608,6 @@ namespace Ugly_Number {
 class Solution {
 public:
     bool isUgly(int n) {
-        if (n <= 0) {
-            return false;
-        }
         while (n > 1) {
             if (n % 2 == 0) {
                 n /= 2;
@@ -803,10 +802,50 @@ void Tests() {
 
 }
 
-int main()
+namespace Path_Crossing {
 
+class Solution {
+public:
+    bool isPathCrossing(string path) {
+        using point = std::pair<uint32_t, uint32_t>;
+        set<point> points;
+        point current_point = {0, 0};
+        points.insert(current_point);
+        for (auto& element : path) {
+            if (element == 'N') {
+                current_point.second += 1;
+            } else if (element == 'S') {
+                current_point.second -= 1;
+            } else if (element == 'E') {
+                current_point.first += 1;
+            } else {
+                current_point.first -= 1;
+            }
+            if (points.count(current_point)) {
+                return true;
+            } else {
+                points.insert(current_point);
+            }
+        }
+        return false;
+    }
+};
 
-{
-    Replace_Elements_with_Greatest_Element_on_Right_Side::Tests();
+void Tests() {
+    Solution solution;
+    {
+        string path = "NES";
+        assert(solution.isPathCrossing(path) == false);
+        path = "N";
+        assert(solution.isPathCrossing(path) == false);
+        path = "NESWW";
+        assert(solution.isPathCrossing(path) == true);
+    }
+}
+
+}
+
+int main() {
+    Path_Crossing::Tests();
     return 0;
 }
