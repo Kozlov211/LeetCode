@@ -715,7 +715,7 @@ public:
     int hammingWeight(uint32_t number) {
         int sum = 0;
         while(number > 0) {
-            if (number & 1 > 0) {
+            if ((number & 1) > 0) {
                 ++sum;
             }
             number = number >> 1;
@@ -845,7 +845,109 @@ void Tests() {
 
 }
 
+
+namespace Delete_Node_in_a_BST {
+
+struct TreeNode {
+   int val;
+   TreeNode *left;
+   TreeNode *right;
+   TreeNode() : val(0), left(nullptr), right(nullptr) {}
+   TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+   TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+class Solution {
+public:
+    TreeNode* FindElement(TreeNode* root, int key) {
+        if (root) {
+            TreeNode* node = root;
+            TreeNode* parent = root;
+            while(node) {
+                if (key == node->val) {
+                    return parent;
+                } else if (node->left && (key <= node->left->val)) {
+                    parent = node;
+                    node = node->left;
+                } else if (node->right && (key >= node->right->val)) {
+                    parent = node;
+                    node = node->right;
+                } else {
+                    return nullptr;
+                }
+            }
+        }
+        return root;
+    }
+
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        TreeNode* parent = FindElement(root, key);
+        if (parent) {
+            if (parent->val == key) {
+            }
+        }
+        return root;
+    }
+};
+
+void Tests() {
+    Solution solution;
+    {
+        TreeNode* root = new TreeNode{5, new TreeNode{3, new TreeNode{2}, new TreeNode{4}}, new TreeNode{6, nullptr, new TreeNode{7}}};
+        solution.deleteNode(root, 3);
+    }
+}
+
+}
+
+
+namespace Reverse_String {
+
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        if (s.empty()) {
+            return;
+        }
+        for (size_t i = 0; i < s.size() / 2; ++i) {
+            std::swap(s[i], s[s.size() - 1 - i]);
+        }
+    }
+};
+
+void Tests() {
+    Solution solution;
+    {
+        vector<char> s;
+        solution.reverseString(s);
+        vector<char> result;
+        assert(s == result);
+    }
+    {
+        vector<char> s = {'h','e','l','l','o'};
+        solution.reverseString(s);
+        vector<char> result = {'o', 'l', 'l', 'e', 'h'};
+        assert(s == result);
+    }
+    {
+        vector<char> s = {'H','a','n','n','a','h'};
+        solution.reverseString(s);
+        vector<char> result = {'h','a','n','n','a','H'};
+        assert(s == result);
+    }
+    {
+        vector<char> s = {'H'};
+        solution.reverseString(s);
+        vector<char> result = {'H'};
+        assert(s == result);
+    }
+
+}
+
+
+}
+
 int main() {
-    Path_Crossing::Tests();
+    Reverse_String::Tests();
     return 0;
 }
