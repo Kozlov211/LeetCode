@@ -178,6 +178,7 @@ DIST          = /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/spec_post.prf \
+		../LeetCode/.qmake.stash \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -327,6 +328,7 @@ Makefile: ../LeetCode/LeetCode.pro /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/linux
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -466,6 +468,7 @@ Makefile: ../LeetCode/LeetCode.pro /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/linux
 /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/qt_config.prf:
 /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/toolchain.prf:
 /home/konstantn/Qt/6.3.1/gcc_64/mkspecs/features/default_pre.prf:
